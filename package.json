@@ -10,14 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/Charlie-Walsh/Simon.git"
   },
-  "author": "",
+  "author": "author",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Charlie-Walsh/Simon/issues"
   },
   "homepage": "https://github.com/Charlie-Walsh/Simon#readme",
   "devDependencies": {
-    "jest": "^28.1.0",
+    "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.0"
   }
 }
