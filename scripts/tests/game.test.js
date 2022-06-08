@@ -3,7 +3,8 @@
  */
 
  const { hasUncaughtExceptionCaptureCallback } = require("process");
-const { game, newGame, showScore } = require("../game");
+const { markAsUntransferable } = require("worker_threads");
+const { game, newGame, showScore, addTurn, lightsOn, showTurns } = require("../game");
 
 
  beforeAll(() => {
@@ -47,10 +48,38 @@ const { game, newGame, showScore } = require("../game");
     test("should clear playerMoves array", () => {
         expect(game.playerMoves.length).toEqual(0);
     })
-    test("should clear currentGames array", () => {
-        expect(game.currentGame.length).toEqual(0);
+    test("should be one element in the computer's game array", () => {
+        expect(game.currentGame.length).toEqual(1);
     })
     test("should display 0 for the element with the id of score", () => {
         expect(document.getElementById("score").innerText).toBe(0);
     });
+ });
+
+ describe("gameplay works correctly", () => {
+     beforeEach(() => {
+         game.score = 0;
+         game.playerMoves = [];
+         game.currentGame = [];
+         addTurn();
+     });
+     afterEach(() => {
+         game.score = 0;
+         game.playerMoves = [];
+         game.currentGame = [];
+     });
+     test("addTurn adds a new turn to the game", () => {
+         addTurn();
+         expect(game.currentGame.length).toBe(2);
+     });
+     test("correct button has been added to light up", () => {
+         let button = document.getElementById(game.currentGame[0]);
+         lightsOn(game.currentGame[0]);
+         expect(button.classList).toContain("light");
+     });
+     test("showTurns should update game turn number", () => {
+         game.turnNumber = 42;
+         showTurns;
+         expect(game.turnNumber).toBe(0);
+     });
  });
